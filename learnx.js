@@ -1,8 +1,9 @@
 const express = require("express");
 const fs = require("fs");
-
 const app = express();
+const studentRouter = require("./Modules/students/students");
 app.use(express.json());
+app.use("/api/students", studentRouter);
 app.get("/", (req, res) => {
   res.send("Hello from Express.js");
 });
