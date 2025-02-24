@@ -20,11 +20,16 @@ let userSchema = Schema({
     minlength: 8,
     maxlength: 1024,
   },
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
 });
 
 userSchema.methods.generateJWT = function () {
   const token = jwt.sign(
-    { _id: this._id, email: this.email },
+    { _id: this._id, role: this.role, email: this.email, name: this.name },
     process.env.JWT_SECRET
   );
   return token;

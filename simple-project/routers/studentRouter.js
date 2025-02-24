@@ -1,4 +1,6 @@
 const express = require("express");
+const authorize = require("../Middlewares/authorize");
+const admin = require("../Middlewares/admin");
 const { Student } = require("./../models/students");
 const router = express.Router();
 
@@ -80,6 +82,6 @@ router
   .route("/:id")
   .get(getSingleStudent)
   .put(getUpdateStudent)
-  .delete(deleteStudent);
+  .delete([authorize, admin], deleteStudent);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require("express");
 const { User } = require("./../models/users/users");
 const bcrypt = require("bcrypt");
+const authorize = require("../Middlewares/authorize");
 const router = express.Router();
 
 const newUser = async (req, res) => {
@@ -35,5 +36,8 @@ const newUser = async (req, res) => {
 };
 
 router.route("/").post(newUser);
+router.route("/me").get(authorize, (req, res) => {
+  res.send(req.user); // req.user is my payload  when i create a user model then i will add a method in user model which is generateJWT()
+});
 
 module.exports = router;
